@@ -16,7 +16,7 @@ export class QuizComponent implements OnInit {
   mode = 'quiz';
   quizName: string;
   score = 0;
-  question : Question;
+  question: Question;
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
@@ -49,14 +49,38 @@ export class QuizComponent implements OnInit {
     this.quizes = this.quizService.getAll();
     this.quizName = this.quizes[0].id;
     this.loadQuiz(this.quizName);
-    console.log("question.options.answer",this.question);
-    console.log("question.options.answer submit",this.quiz.questions);
+    console.log("question.options.answer", this.question);
+
     // console.log(questions.options.isanswer);
 
   }
 
-  getScore() {
-    // if(question.answered ===)
+  getScore(event) {
+
+   // console.log("event ", event);
+    console.log("event i length", event.length);
+    for (let i = 0; i < event.length; i++) {
+      console.log("event in j", event[i].options.length);
+      console.log("in i");
+      for (let j = 0; j < event[i].options.length; j++) {
+        console.log("in j");
+        // console.log("eventinn iiiiii654645", event[i].options[j].isAnswer);
+        // console.log("eventinn jjjjjj", event[i].options[j].selected);
+        // if (event[i].options[j].isAnswer === true && event[i].options[j].selected === true) {
+        //   this.score = +1;
+        //   console.log(" this.score", this.score);
+
+        // }
+
+      }
+    }
+    return this.score;
+    // if(event[0]['Question'] === event.options.selected){
+    //   this.score =+1;
+    //   console.log("this.score",this.score);
+    //   return this.score
+    // }
+
   }
   loadQuiz(quizName: string) {
     this.quizService.get(quizName).subscribe(res => {
@@ -116,7 +140,7 @@ export class QuizComponent implements OnInit {
     return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
   };
   getTotalScore(question: Question) {
-   
+
     return question.options.every(x => x.isAnswer === true) ? this.score + 1 : this.score;
 
   };
@@ -125,11 +149,11 @@ export class QuizComponent implements OnInit {
     this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
     console.log("answee", answers)
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    console.log(this.quiz.questions[0].options[0].isAnswer);
+    // console.log(this.quiz.questions[0].options[0].isAnswer);
     this.mode = 'result';
     // if(this.quiz){
 
     // }
-   
+
   }
 }
